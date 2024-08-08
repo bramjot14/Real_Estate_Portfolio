@@ -1,75 +1,103 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import bcrypt from "bcrypt";
 
 const app = express();
 const port = 3000;
+const saltRounds = 10;
 
+// PostgreSQL Client Setup
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "permalist",
+  database: "secrets",
   password: "Chauhan@123",
   port: 5432,
 });
 db.connect();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // To parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // To parse URL-encoded bodies
+
 app.use(express.static("public"));
 
-// let items = [
-//   { id: 1, title: "Buy milk" },
-//   { id: 2, title: "Finish homework" },
-// ];
+// Set EJS as the template engine
+app.set("view engine", "ejs");
 
-app.get("/", async (req, res) => {
+// Serve your EJS pages with error handling
+app.get("/", (req, res) => {
+  res.render("index", { error: null, showLoginModal: false });
+});
+
+// Registration Route
+app.post("/register", async (req, res) => {
+  const { fullname, email, password, phone } = req.body;
+
   try {
-    res.render("index.ejs");
+    const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+
+    if (checkResult.rows.length > 0) {
+      res.render("index", { error: "Email already exists. Try logging in.", showLoginModal: false });
+    } else {
+      bcrypt.hash(password, saltRounds, async (err, hash) => {
+        if (err) {
+          console.log("Error hashing password", err);
+          res.status(500).render("index", { error: "Internal server error. Please try again later.", showLoginModal: false });
+        } else {
+          const result = await db.query(
+            "INSERT INTO users (fullname, email, password, phone) VALUES ($1, $2, $3, $4)",
+            [fullname, email, hash, phone]
+          );
+          console.log(result);
+          res.redirect("/");
+        }
+      });
+    }
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server Error");
+    console.log(err);
+    res.status(500).render("index", { error: "Internal server error. Please try again later.", showLoginModal: false });
   }
-})
+});
 
-// app.post("/add", async (req, res) => {
-//   const item = req.body.newItem;
-//  // items.push({ title: item });
-//  try {
-//   await db.query("INSERT INTO items (title) VALUES ($1)", [item]);
-//   res.redirect("/");
-// } catch (err) {
-//   console.error(err);
-//   res.status(500).send("Server Error");
-// }
-// });
+// Login Route
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
-// app.post("/edit", async (req, res) => {
-//   const itemId = req.body.updatedItemId;
-//   const itemTitle = req.body.updatedItemTitle;
+  console.log('Received login request for email:', email); // This should now log the correct email
 
-//   try {
-//     await db.query("UPDATE items SET title = $1 WHERE id = $2;", [itemTitle, itemId]);
-//     res.redirect("/");
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Server Error");
-//   }
-// });
+  if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required." });
+  }
 
-// app.post("/delete", async (req, res) => {
-//   const itemId = req.body.deleteItemId;
+  try {
+      const result = await db.query("SELECT * FROM users WHERE email ILIKE $1", [email]);
 
-//   try {
-//     await db.query("DELETE FROM items WHERE id = $1;", [itemId]);
-//     res.redirect("/");
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Server Error");
-//   }
-// });
+      if (result.rows.length > 0) {
+          const user = result.rows[0];
+          const storedHashedPassword = user.password;
+
+          bcrypt.compare(password, storedHashedPassword, (err, match) => {
+              if (err) {
+                  console.error("Error comparing passwords:", err);
+                  return res.status(500).json({ error: "Internal server error. Please try again later." });
+              }
+              if (match) {
+                  return res.status(200).json({ success: true });
+              } else {
+                  return res.status(401).json({ error: "Incorrect password." });
+              }
+          });
+      } else {
+          return res.status(404).json({ error: "User not found." });
+      }
+  } catch (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: "Internal server error. Please try again later." });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
-// Test Commit
