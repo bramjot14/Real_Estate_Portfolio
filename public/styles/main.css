@@ -1,0 +1,330 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.header-top {
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent background */
+    color: white;
+    padding: 5px 0;
+    position: absolute;
+    width: 100%;
+    z-index: 5; 
+}
+
+.header-top .contact-info .social-media {
+    display: flex;
+    align-items: center;
+}
+
+.header-top .contact-info a,
+.header-top .social-media a {
+    margin-left: 15px; 
+    text-decoration: none;
+}
+
+.header {
+    position: absolute;
+    width: 100%;
+    top: 40px; 
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.7); 
+    padding: 5px 0;
+}
+
+ .navbar {
+    padding: 0;
+    margin: 0;
+}
+
+.header .navbar-nav .nav-link {
+    color: white;
+    margin-right: 10px;
+    font-weight: bold;
+    white-space: nowrap; /* Prevent text wrapping */
+    padding: 5px;
+}
+
+.header .navbar-nav .nav-link:hover {
+    color: #f0a500;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+.hero-section {
+    background: url('../assets/hero-image.jpg') no-repeat center;
+    background-size: cover;
+    height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content .nav-tabs {
+    border: none;
+}
+
+.hero-content .nav-link {
+    color: white;
+    border-radius: 0;
+    border: 1px solid white;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hero-content .nav-link.active {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #f0a500;
+}
+
+.hero-content .form-control {
+    border-radius: 0;
+}
+
+
+
+.access-section {
+    height: 100vh;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+
+}
+
+.left-side {
+    background-color: rgb(0, 0, 0) ;
+    color: white;
+    padding: 40px;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-side {
+    background: url('../assets/real_estate.png') no-repeat center center/cover;
+    width: 65%;
+}
+
+input::placeholder {
+    font-weight: bold; 
+}
+
+.left-side h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.left-side p {
+    margin-bottom: 30px;
+}
+.left-side .form-control {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    color: white;
+    margin-bottom: 20px;
+}
+.left-side .form-control:focus {
+    background-color: transparent;
+    border-color: #f0a500;
+    box-shadow: none;
+}
+.left-side .form-check-label {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+}
+.left-side .btn {
+    background-color: #f0a500;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: black;
+    cursor: pointer;
+}
+.left-side .btn:hover {
+    background-color: #f0a500;
+}
+
+.work {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    background: url('../assets/real_estate-2.jpg') no-repeat center center/cover;
+
+}
+  
+.work h1 {
+    font-size: 3rem;
+    font-weight: bolder;
+    margin-bottom: 1rem;
+}
+  
+.work p {
+    font-size: 1.25rem;
+    font-weight: bolder;
+    margin-bottom: 2rem;
+}
+  
+.work .btn {
+    border-width: 2px;
+    font-weight: bolder;
+}
+
+.newsletter-section {
+    background-color: #f8f9fa;
+  }
+  
+  .newsletter-section h2 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-section p {
+    margin-bottom: 2rem;
+  }
+  
+  .newsletter-section .form-control {
+    border: none;
+    border-bottom: 1px solid #000;
+    border-radius: 0;
+  }
+  
+  .newsletter-section .btn {
+    border: 1px solid #000;
+    border-radius: 0;
+  }
+  
+  .newsletter-section .form-check-label a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  .contact-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    border: 5px solid red;
+    margin: 4rem;
+  }
+
+  .container .social {
+    display: flex;
+    justify-content: center;
+  }
+
+  .social-icons i {
+    font-size: 20px; /* Adjust size as needed */
+  }
+ 
+  .contact-logo {
+        width: 100px;
+        height: 100px;
+  }
+  
+  .contact-section h2 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-section p {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-section a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .contact-section a:hover {
+    text-decoration: underline;
+  }
+  
+  .contact-section .small {
+    font-size: 0.875rem;
+  }
+  
+  .name-container h2,
+  .name-container h3 {
+    margin: 0; /* Remove margins to eliminate unwanted space */
+  }
+  
+ 
+  
+  
+/* General responsive styles */
+/* @media (max-width: 768px) {
+    .header-top .d-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: center;
+    }
+    .header-top .me-3 {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+    .header .navbar-brand {
+        flex-direction: column;
+        align-items: center;
+    }
+    .header .navbar-brand .ms-2 {
+        margin-left: 0 !important;
+        text-align: center;
+    }
+    .header .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .header .navbar-nav .nav-link {
+        margin-right: 0 !important;
+        margin-bottom: 5px;
+    }
+    .hero-section {
+        height: auto;
+        padding: 20px 0;
+    }
+    .hero-content .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-content .nav-tabs .nav-item {
+        margin-bottom: 10px;
+    }
+    .access-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .left-side {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    .right-side {
+        display: none;
+    }
+}
+
+
+/* Mobile specific styles */
+/* @media (max-width: 576px) {
+    .header-top .d-flex {
+        align-items: center;
+    }
+    .hero-section {
+        text-align: center;
+    }
+    .hero-content .form-control {
+        margin-top: 15px;
+    }
+} */ 
+
