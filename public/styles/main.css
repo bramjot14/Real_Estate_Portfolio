@@ -256,7 +256,7 @@ input::placeholder {
   
   .name-container h2,
   .name-container h3 {
-    margin: 0; /* Remove margins to eliminate unwanted space */
+    margin: 0; /* Remove margins to eliminate all unwanted space */
   }
   
  
